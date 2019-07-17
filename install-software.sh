@@ -62,9 +62,12 @@ tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz
 echo "export PATH=\$PATH:/usr/local/go/bin" >> /etc/profile
 echo "export GOPATH=/testvegeta/go" >> /etc/profile
 export GOPATH=/testvegeta/go
+echo "export GOCACHE=/testvegeta/gocache" >> /etc/profile
+export GOCACHE=/testvegeta/gocache
 /usr/local/go/bin/go get -u github.com/tsenart/vegeta
-echo "export PATH=\$PATH:$HOME/go/bin" >> /etc/profile
-chmod +x $HOME/go/bin/vegeta
+export PATH=$PATH:/testvegeta/go/bin
+echo "export PATH=\$PATH:/testvegeta/go/bin" >> /etc/profile
+chmod +x /testvegeta/go/bin/vegeta
 }
 #############################################################################
 install_git_ubuntu(){
@@ -99,6 +102,8 @@ environ=`env`
 mkdir /git
 mkdir /testvegeta
 mkdir /testvegeta/log
+mkdir /testvegeta/go
+mkdir /testvegeta/gocache
 mkdir /testvegeta/config
 
 # Write access in log subfolder
