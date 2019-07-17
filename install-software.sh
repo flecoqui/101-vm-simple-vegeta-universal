@@ -8,7 +8,7 @@ log()
 	# If you want to enable this logging, uncomment the line below and specify your logging key 
 	#curl -X POST -H "content-type:text/plain" --data-binary "$(date) | ${HOSTNAME} | $1" https://logs-01.loggly.com/inputs/${LOGGING_KEY}/tag/redis-extension,${HOSTNAME}
 	echo "$1"
-	echo "$1" >> /testgo/log/install.log
+	echo "$1" >> /testvegeta/log/install.log
 }
 #############################################################################
 check_os() {
@@ -60,9 +60,11 @@ mkdir /usr/local/go
 tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz 
 
 echo "export PATH=\$PATH:/usr/local/go/bin" >> /etc/profile
+echo "export GOPATH=/testvegeta/go" >> /etc/profile
+export GOPATH=/testvegeta/go
 /usr/local/go/bin/go get -u github.com/tsenart/vegeta
-echo "export PATH=\$PATH:/$USER/go/bin" >> /etc/profile
-chmod +x /$USER/go/bin/vegeta
+echo "export PATH=\$PATH:$HOME/go/bin" >> /etc/profile
+chmod +x $HOME/go/bin/vegeta
 }
 #############################################################################
 install_git_ubuntu(){
@@ -95,12 +97,12 @@ firewall-cmd --reload
 environ=`env`
 # Create folders
 mkdir /git
-mkdir /testgo
-mkdir /testgo/log
-mkdir /testgo/config
+mkdir /testvegeta
+mkdir /testvegeta/log
+mkdir /testvegeta/config
 
 # Write access in log subfolder
-chmod -R a+rw /testgo/log
+chmod -R a+rw /testvegeta/log
 log "Environment before installation: $environ"
 
 log "Installation script start : $(date)"
@@ -116,31 +118,31 @@ else
 	if [ $iscentos -eq 0 ] ; then
 	    log "configure network centos"
 		configure_network_centos
-	    log "install netcore centos"		
-		install_vegeta
 	    log "install git centos"
 		install_git_centos
+	    log "install vegeta centos"		
+		install_vegeta
 	elif [ $isredhat -eq 0 ] ; then
 	    log "configure network redhat"
 		configure_network_centos
-	    log "install go redhat"
-		install_vegeta
 	    log "install git redhat"
 		install_git_centos
+	    log "install vegeta redhat"
+		install_vegeta
 	elif [ $isubuntu -eq 0 ] ; then
 	    log "configure network ubuntu"
 		configure_network
-		log "install go ubuntu"
-		install_vegeta
 	    log "install git ubuntu"
 		install_git_ubuntu
+		log "install vegeta ubuntu"
+		install_vegeta
 	elif [ $isdebian -eq 0 ] ; then
 	    log "configure network"
 		configure_network
-		log "install go debian"
-		install_vegeta
-	    log "install git debian"
+		log "install git debian"
 		install_git_ubuntu
+		log "install vegeta debian"
+		install_vegeta
 	fi
 	log "installation done"
 fi
