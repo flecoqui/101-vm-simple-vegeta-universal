@@ -60,8 +60,9 @@ mkdir /usr/local/go
 tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz 
 
 echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile
-go get -u github.com/tsenart/vegeta
-
+/usr/local/go/bin/go get -u github.com/tsenart/vegeta
+echo "export PATH=$PATH:/$USER/go/bin" >> /etc/profile
+chmo +x /$USER/go/bin/vegeta
 }
 #############################################################################
 install_git_ubuntu(){
