@@ -59,10 +59,10 @@ wget -q go1.12.7.linux-amd64.tar.gz https://dl.google.com/go/go1.12.7.linux-amd6
 mkdir /usr/local/go
 tar -C /usr/local -xzf go1.12.7.linux-amd64.tar.gz 
 
-echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile
+echo "export PATH=\$PATH:/usr/local/go/bin" >> /etc/profile
 /usr/local/go/bin/go get -u github.com/tsenart/vegeta
-echo "export PATH=$PATH:/$USER/go/bin" >> /etc/profile
-chmo +x /$USER/go/bin/vegeta
+echo "export PATH=\$PATH:/$USER/go/bin" >> /etc/profile
+chmod +x /$USER/go/bin/vegeta
 }
 #############################################################################
 install_git_ubuntu(){
