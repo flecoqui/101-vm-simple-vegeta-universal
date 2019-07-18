@@ -190,11 +190,13 @@ while ((!(Test-Path "C:\Program Files\Git\bin\git.exe"))-and($count -lt 20)) { S
 WriteLog "git Installed" 
 
 WriteLog "Installing Vegeta" 
-$env:GOPATH=/testvegeta/go
-$env:GOCACHE=/testvegeta/gocache
-c:\bin\go.exe get -u github.com/tsenart/vegeta
+$env:GOPATH = "c:\testvegeta\go"
+$env:GOCACHE = "c:\testvegeta\gocache"
+c:\go\bin\go.exe get -u github.com/tsenart/vegeta
 $env:Path += "c:\testvegeta\go\bin"
 go get -u github.com/tsenart/vegeta
+$env:PATH += $env:HOMEPATH + "\go\bin"
+$env:PATH += $env:GOPATH + "\bin"
 WriteLog "Vegeta Installed" 
 
 WriteLog "Installation done!" 
