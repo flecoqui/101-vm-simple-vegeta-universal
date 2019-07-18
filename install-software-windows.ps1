@@ -192,7 +192,7 @@ WriteLog "git Installed"
 WriteLog "Installing Vegeta" 
 $env:GOPATH=/testvegeta/go
 $env:GOCACHE=/testvegeta/gocache
-c:\testvegeta\go\bin\go.exe get -u github.com/tsenart/vegeta
+c:\bin\go.exe get -u github.com/tsenart/vegeta
 $env:Path += "c:\testvegeta\go\bin"
 go get -u github.com/tsenart/vegeta
 WriteLog "Vegeta Installed" 
