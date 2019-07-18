@@ -12,10 +12,10 @@
       "value": "VMP@ssw0rd"
     },
     "vmOS": {
-      "value": "centos"
+      "value": "windowsserver2016"
     },
     "vmSize": {
-      "value": "Small"
+      "value": "Large"
     }
   }
 }
