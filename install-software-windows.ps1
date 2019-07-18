@@ -179,11 +179,12 @@ WriteLog "Firewall configured"
 
 WriteLog "Installing Go" 
 Start-Process msiexec.exe -Wait -ArgumentList '/I C:\testvegeta\log\go1.12.7.windows-amd64.msi /quiet'
-$env:Path += "c:\go\bin"
+$env:Path += ";c:\go\bin"
 WriteLog "Go installed" 
 
 WriteLog "Installing Git" 
 Start-Process -FilePath "c:\testvegeta\log\Git-2.17.0-64-bit.exe" -Wait -ArgumentList "/VERYSILENT","/SUPPRESSMSGBOXES","/NORESTART","/NOCANCEL","/SP-","/LOG"
+$env:Path += ";C:\Program Files\Git\bin"
 
 $count=0
 while ((!(Test-Path "C:\Program Files\Git\bin\git.exe"))-and($count -lt 20)) { Start-Sleep 10; $count++}
@@ -195,11 +196,11 @@ $env:GOPATH = "c:\testvegeta\go"
 $env:GOCACHE = "c:\testvegeta\gocache"
 [Environment]::SetEnvironmentVariable("GOCACHE", "c:\testvegeta\gocache", "Machine")
 c:\Go\bin\go.exe get -u github.com/tsenart/vegeta
-$env:Path += "c:\testvegeta\go\bin"
+$env:Path += ";c:\testvegeta\go\bin"
 go get -u github.com/tsenart/vegeta
-$env:PATH += $env:HOMEPATH + "\go\bin"
-$env:PATH += $env:GOPATH + "\bin"
-[Environment]::SetEnvironmentVariable("PATH", $env:PATH, "Machine")
+$env:Path += ";" + $env:HOMEPATH + "\go\bin"
+$env:Path += ";" + $env:GOPATH + "\bin"
+[Environment]::SetEnvironmentVariable("PATH", $env:Path, "Machine")
 WriteLog "Vegeta Installed" 
 
 WriteLog "Installation done!" 
